@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     resultText.setText(Integer.toString(Multiply(a,b)));
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Error lol", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), "Error??", Toast.LENGTH_LONG);
                 }
             }
         });
