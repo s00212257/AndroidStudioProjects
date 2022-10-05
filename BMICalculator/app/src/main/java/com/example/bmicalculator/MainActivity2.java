@@ -29,8 +29,9 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        Intent i = getIntent();
-        Double BMI = i.getDoubleExtra("BMI", 1337);
+        Double BMI = getIntent().getDoubleExtra("BMI", 1337);
+
+
 
         resultText = findViewById(R.id.resultText);
         resultText.setText(BMI.toString());
