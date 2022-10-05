@@ -37,8 +37,8 @@ public class MainActivity2 extends AppCompatActivity {
 
         theFunny = findViewById(R.id.theFunny);
 
-        Button btnBack = findViewById(R.id.btnBack);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
+        btnBack = findViewById(R.id.btnBack);
+        progressBar = findViewById(R.id.progressBar);
 
         int a = BMI.intValue();
         progressBar.setProgress(a);

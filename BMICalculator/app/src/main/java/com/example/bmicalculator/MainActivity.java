@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnCalc = findViewById(R.id.btnCalc);
-        Button btnClear = findViewById(R.id.btnClear);
-        EditText etHeight = findViewById(R.id.etHeight);
-        EditText etWeight = findViewById(R.id.etWeight);
+        btnCalc = findViewById(R.id.btnCalc);
+        btnClear = findViewById(R.id.btnClear);
+        etHeight = findViewById(R.id.etHeight);
+        etWeight = findViewById(R.id.etWeight);
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
