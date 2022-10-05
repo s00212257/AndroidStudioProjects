@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 if (dHeight > 80 && dWeight > 20 && dHeight < 300 && dWeight < 200) {
                     //BMI = weight (kg) ÷ height*2 (meters)
                     //weight KG / ((height CM /100) *2)
-                    BMI = dWeight / ((dHeight / 100 )*2);
+                    dHeight = dHeight / 100;
+                    BMI = dWeight / (dHeight*dHeight);
                     Intent i = new Intent(MainActivity.this, MainActivity2.class).putExtra("BMI", BMI);
                     MainActivity.this.startActivity(i);
                     etHeight.setText("");

@@ -31,8 +31,6 @@ public class MainActivity2 extends AppCompatActivity {
 
         Double BMI = getIntent().getDoubleExtra("BMI", 1337);
 
-
-
         resultText = findViewById(R.id.resultText);
         resultText.setText(BMI.toString());
 
