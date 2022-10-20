@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ResistorCalc</string>
+
+    <string-array name="colours_array">
+        <item>Black</item>
+        <item>Brown</item>
+        <item>Red</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Violet</item>
+        <item>Grey</item>
+        <item>White</item>
+    </string-array>
+</resources>
