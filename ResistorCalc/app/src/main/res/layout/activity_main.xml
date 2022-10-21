@@ -6,31 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <!-- TODO: Make the app look nicer, use views to create coloured boxes representing selected colours, place under PNG of resistor with transparent gaps instead of bands -->
+
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/spinnerMultiplier"
         android:layout_width="208dp"
         android:layout_height="41dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBandTwo" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerTolerance"
         android:layout_width="208dp"
         android:layout_height="41dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMultiplier" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/spinnerBandTwo"
         android:layout_width="208dp"
         android:layout_height="41dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBandOne" />
+
+    <Spinner
+        android:id="@+id/spinnerBandOne"
+        android:layout_width="208dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,20 +53,23 @@
         android:id="@+id/btnCalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="92dp"
         android:text="Calculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTolerance" />
 
     <Button
         android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="Reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCalc" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCalc"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

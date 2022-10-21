@@ -10,13 +10,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Objects;
+//TODO: Comments on code
+//TODO: Remove unused items
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Spinner spinner1;
-    Spinner spinner2;
-    Spinner spinner4;
+    Spinner spinnerBandOne;
+    Spinner spinnerBandTwo;
+    //Spinner spinnerBandThree;
+    Spinner spinnerMultiplier;
+    Spinner spinnerTolerance;
     Button btnCalc;
     Button btnReset;
 
@@ -28,53 +31,86 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //No more top bar $$$
         getSupportActionBar().hide();
 
-        spinner1 = findViewById(R.id.spinner1);
-        spinner2 = findViewById(R.id.spinner2);
-        spinner4 = findViewById(R.id.spinner4);
+        spinnerBandOne = findViewById(R.id.spinnerBandOne);
+        spinnerBandTwo = findViewById(R.id.spinnerBandTwo);
+        //spinnerBandThree = findViewById(R.id.spinnerBandThree);
+        spinnerMultiplier = findViewById(R.id.spinnerMultiplier);
+        spinnerTolerance = findViewById(R.id.spinnerTolerance);
 
         btnCalc = findViewById(R.id.btnCalc);
         btnReset = findViewById(R.id.btnReset);
 
-        ArrayAdapter<CharSequence> colourAdapter = ArrayAdapter.createFromResource(this,
-                R.array.colours_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> bandColour = ArrayAdapter.createFromResource(this,
+                R.array.bandColours, android.R.layout.simple_spinner_item);
 
-        colourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> toleranceColour = ArrayAdapter.createFromResource(this,
+                R.array.toleranceColours, android.R.layout.simple_spinner_item);
 
-        spinner1.setAdapter(colourAdapter);
-        spinner2.setAdapter(colourAdapter);
-        spinner4.setAdapter(colourAdapter);
+        bandColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        toleranceColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner1.setOnItemSelectedListener(this);
-        spinner2.setOnItemSelectedListener(this);
-        spinner4.setOnItemSelectedListener(this);
+        spinnerBandOne.setAdapter(bandColour);
+        spinnerBandTwo.setAdapter(bandColour);
+        //spinnerBandThree.setAdapter(bandColour);
+        spinnerMultiplier.setAdapter(bandColour);
+        spinnerTolerance.setAdapter(toleranceColour);
+
+        spinnerBandOne.setOnItemSelectedListener(this);
+        spinnerBandTwo.setOnItemSelectedListener(this);
+        //spinnerBandThree.setOnItemSelectedListener(this);
+        spinnerMultiplier.setOnItemSelectedListener(this);
+        spinnerTolerance.setOnItemSelectedListener(this);
 
         //Calc button press event
         btnCalc.setOnClickListener(view -> {
+            //Build string from the values of the first two bands
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(spinner1.getSelectedItemPosition());
-            stringBuilder.append(spinner2.getSelectedItemPosition());
+            stringBuilder.append(spinnerBandOne.getSelectedItemPosition());
+            stringBuilder.append(spinnerBandTwo.getSelectedItemPosition());
+            //stringBuilder.append(spinnerBandThree.getSelectedItemPosition());
+            //Add the correct number of "0"'s to it
             stringBuilder.append(Multiplier());
 
+            //TODO: Add tolerance to end of string based on the selected item in tolerance spinner using the string array in strings.xml
+
             String finalString = stringBuilder.toString();
+
+            //TODO: Output to a text view, displaying the result + remove toast once completed
             Toast.makeText(getApplicationContext(), (String) finalString,
                     Toast.LENGTH_LONG).show();
         });
 
-        //Reset button press event
         btnReset.setOnClickListener(view -> {
+            //TODO: Add reset functionality (null selected item?)
         });
     }
 
     public String Multiplier(){
         StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
-        while(i < Integer.parseInt(String.valueOf(spinner4.getSelectedItemPosition()))){
+        while(i < Integer.parseInt(String.valueOf(spinnerMultiplier.getSelectedItemPosition()))){
             stringBuilder.append(0);
             i++;
         }
 
        return String.valueOf(stringBuilder);
     }
+
+    /*
+    public String Tolerance(){
+        switch (spinnerTolerance.getSelectedItemPosition()){
+            default: return "± 100";
+            case 0: return "± 1";
+            case 1: return "± 2";
+            case 2: return "± 3";
+            case 3: return "± 4";
+            case 4: return "± 0.5";
+            case 5: return "± 0.25";
+            case 6: return "± 0.10";
+            case 7: return "± 0.05";
+        }
+    }
+    */
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
