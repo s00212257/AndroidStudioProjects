@@ -6,7 +6,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,25 +17,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     Spinner spinnerBandOne;
     Spinner spinnerBandTwo;
-    //Spinner spinnerBandThree;
     Spinner spinnerMultiplier;
     Spinner spinnerTolerance;
     Button btnCalc;
     Button btnReset;
+    TextView tvResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //No more top bar $$$
         getSupportActionBar().hide();
 
         spinnerBandOne = findViewById(R.id.spinnerBandOne);
         spinnerBandTwo = findViewById(R.id.spinnerBandTwo);
-        //spinnerBandThree = findViewById(R.id.spinnerBandThree);
         spinnerMultiplier = findViewById(R.id.spinnerMultiplier);
         spinnerTolerance = findViewById(R.id.spinnerTolerance);
+        tvResult = findViewById(R.id.tvResult);
 
         btnCalc = findViewById(R.id.btnCalc);
         btnReset = findViewById(R.id.btnReset);
@@ -46,43 +45,69 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> toleranceColour = ArrayAdapter.createFromResource(this,
                 R.array.toleranceColours, android.R.layout.simple_spinner_item);
 
+        ArrayAdapter<CharSequence> multiColour = ArrayAdapter.createFromResource(this,
+                R.array.multiColours, android.R.layout.simple_spinner_item);
+
         bandColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toleranceColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerBandOne.setAdapter(bandColour);
         spinnerBandTwo.setAdapter(bandColour);
-        //spinnerBandThree.setAdapter(bandColour);
-        spinnerMultiplier.setAdapter(bandColour);
+        spinnerMultiplier.setAdapter(multiColour);
         spinnerTolerance.setAdapter(toleranceColour);
 
         spinnerBandOne.setOnItemSelectedListener(this);
         spinnerBandTwo.setOnItemSelectedListener(this);
-        //spinnerBandThree.setOnItemSelectedListener(this);
         spinnerMultiplier.setOnItemSelectedListener(this);
         spinnerTolerance.setOnItemSelectedListener(this);
 
         //Calc button press event
         btnCalc.setOnClickListener(view -> {
-            //Build string from the values of the first two bands
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(spinnerBandOne.getSelectedItemPosition());
-            stringBuilder.append(spinnerBandTwo.getSelectedItemPosition());
-            //stringBuilder.append(spinnerBandThree.getSelectedItemPosition());
-            //Add the correct number of "0"'s to it
-            stringBuilder.append(Multiplier());
-
-            //TODO: Add tolerance to end of string based on the selected item in tolerance spinner using the string array in strings.xml
-
-            String finalString = stringBuilder.toString();
-
-            //TODO: Output to a text view, displaying the result + remove toast once completed
-            Toast.makeText(getApplicationContext(), (String) finalString,
-                    Toast.LENGTH_LONG).show();
+            tvResult.setText(resistance() + " Ω " + Tolerance() + "%");
         });
 
         btnReset.setOnClickListener(view -> {
-            //TODO: Add reset functionality (null selected item?)
+            spinnerBandOne.setSelection(0);
+            spinnerBandTwo.setSelection(0);
+            spinnerMultiplier.setSelection(0);
+            spinnerTolerance.setSelection(0);
+            tvResult.setText("");
         });
+    }
+
+    public String resistance(){
+        int b1 = spinnerBandOne.getSelectedItemPosition();
+        int b2 = spinnerBandTwo.getSelectedItemPosition();
+        int m = spinnerMultiplier.getSelectedItemPosition();
+
+        switch (m){
+            default: return "" ;
+            case 0 :
+            case 1 :
+            case 2 :
+            case 3 :
+                return String.valueOf(b1) + String.valueOf(b2) + Multiplier();
+            case 4: return String.valueOf(b1) + String.valueOf(b2) + "0K";
+            case 5: return String.valueOf(b1) + "." + String.valueOf(b2) + "M";
+            case 6: return String.valueOf(b1) + String.valueOf(b2) + "M";
+            case 7: return String.valueOf(b1) + String.valueOf(b2) + "0M";
+            case 8: return String.valueOf(b1) + "." + String.valueOf(b2) + "G";
+            case 9: return String.valueOf(b1) + String.valueOf(b2) + "G";
+            case 10: return String.valueOf(b1) + "." + String.valueOf(b2);
+            case 11: return "0." + String.valueOf(b1) + String.valueOf(b2);
+        }
+        /*
+        if(m < 3) return String.valueOf(b1) + String.valueOf(b2) + Multiplier();
+        else if(m == 4) return String.valueOf(b1) + String.valueOf(b2) + "K";
+        else if(m == 5) return String.valueOf(b1) + String.valueOf(b2) + "0K";
+        else if(m == 6) return String.valueOf(b1) + String.valueOf(b2) + "M";
+        else if(m == 7) return String.valueOf(b1) + String.valueOf(b2) + "0M";
+        else if(m == 8) return String.valueOf(b1) + "." + String.valueOf(b2) + "G";
+        else if(m == 9) return String.valueOf(b1) + String.valueOf(b2) + "G";
+        else if(m == 10) return String.valueOf(b1) + "." + String.valueOf(b2);
+        else if(m == 11) return "0." + String.valueOf(b1) + String.valueOf(b2);
+        else return "";
+        */
     }
 
     public String Multiplier(){
@@ -92,11 +117,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             stringBuilder.append(0);
             i++;
         }
-
        return String.valueOf(stringBuilder);
     }
 
-    /*
     public String Tolerance(){
         switch (spinnerTolerance.getSelectedItemPosition()){
             default: return "± 100";
@@ -110,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 7: return "± 0.05";
         }
     }
-    */
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
