@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//TODO: Comments on code
-//TODO: Remove unused items
-
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerBandOne;
@@ -96,18 +93,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 10: return String.valueOf(b1) + "." + String.valueOf(b2);
             case 11: return "0." + String.valueOf(b1) + String.valueOf(b2);
         }
-        /*
-        if(m < 3) return String.valueOf(b1) + String.valueOf(b2) + Multiplier();
-        else if(m == 4) return String.valueOf(b1) + String.valueOf(b2) + "K";
-        else if(m == 5) return String.valueOf(b1) + String.valueOf(b2) + "0K";
-        else if(m == 6) return String.valueOf(b1) + String.valueOf(b2) + "M";
-        else if(m == 7) return String.valueOf(b1) + String.valueOf(b2) + "0M";
-        else if(m == 8) return String.valueOf(b1) + "." + String.valueOf(b2) + "G";
-        else if(m == 9) return String.valueOf(b1) + String.valueOf(b2) + "G";
-        else if(m == 10) return String.valueOf(b1) + "." + String.valueOf(b2);
-        else if(m == 11) return "0." + String.valueOf(b1) + String.valueOf(b2);
-        else return "";
-        */
     }
 
     public String Multiplier(){
