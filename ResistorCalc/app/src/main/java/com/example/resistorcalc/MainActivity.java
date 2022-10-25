@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Calc button press event
         btnCalc.setOnClickListener(view -> {
-            tvResult.setText(resistance() + " Ω " + Tolerance() + "%");
+            tvResult.setText(resistance() + " Ω " + Tolerance());
         });
 
         btnReset.setOnClickListener(view -> {
@@ -108,14 +108,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public String Tolerance(){
         switch (spinnerTolerance.getSelectedItemPosition()){
             default: return "± 100";
-            case 0: return "± 1";
-            case 1: return "± 2";
-            case 2: return "± 3";
-            case 3: return "± 4";
-            case 4: return "± 0.5";
-            case 5: return "± 0.25";
-            case 6: return "± 0.10";
-            case 7: return "± 0.05";
+            case 0: return "± 1 %";
+            case 1: return "± 2 %";
+            case 2: return "";
+            case 3: return "";
+            case 4: return "± 0.5 %";
+            case 5: return "± 0.25 %";
+            case 6: return "± 0.10 %";
+            case 7: return "± 0.05 %";
+            case 8: return "";
+            case 9: return "± 5 %";
+            case 10: return "± 10 %";
+            case 11: return "± 20 %";
         }
     }
 
