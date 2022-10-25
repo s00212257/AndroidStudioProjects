@@ -6,14 +6,18 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    Boolean isFlat;
-    TextView tvx, tvy, tvz;
+    Boolean isFlat = false;
+    TextView tvx, tvy, tvz, tvx1, tvy1, tvz1, tvstat;
+    Button button;
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
@@ -23,13 +27,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         tvx = findViewById(R.id.tvxval);  // this assumes there are three textviews
+        tvx1 = findViewById(R.id.tvxval1);  // this assumes there are three textviews
         tvy = findViewById(R.id.tvyval);  // in your xml file called tvxval, tvyval
+        tvy1 = findViewById(R.id.tvyval1);  // in your xml file called tvxval, tvyval
         tvz = findViewById(R.id.tvzval);  // and tvzval
+        tvz1 = findViewById(R.id.tvzval1);  // and tvzval
+        tvstat = findViewById(R.id.txstat);
+        button = findViewById(R.id.button);
 
         // choose the sensor you want
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isFlat = true;
+            }
+        });
     }
 
     /*
@@ -56,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         // called byt the system every x ms
-        float x, y, z;
-        float x1, y1, z1;
+        double x, y, z;
+        double x1, y1, z1;
 
         x1 = Math.abs(event.values[0]); // get x value
         y1 = Math.abs(event.values[1]);
@@ -68,17 +83,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         z = event.values[2];
 
         tvx.setText(String.valueOf(x));
+        tvx1.setText(String.valueOf(x1));
         tvy.setText(String.valueOf(y));
+        tvy1.setText(String.valueOf(y1));
         tvz.setText(String.valueOf(z));
+        tvz1.setText(String.valueOf(z1));
 
-        if (x1 < 1 && y1 < 9 && z1 > 1) { // phone is flat
-            if (isFlat == false) { // isFlat is global
-                isFlat = true;
-                Toast.makeText(this, "Phone is flat",
-                        Toast.LENGTH_SHORT).show();
-            }
+        final MediaPlayer mp = MediaPlayer.create(this,
+                R.raw.cat_sound);
+
+        if (x1 < 1 && y1 < 1 && z1 > 9) { // phone is flat
+                if (!isFlat) { // isFlat is global
+                    tvstat.setText("Flat");
+                    isFlat = true;
+                    mp.start();
+                }
+                else{
+                    tvstat.setText("Not flat");
+                    isFlat = false;
+                }
         }
-        }
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
